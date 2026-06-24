@@ -24,7 +24,7 @@ const app = express();
 app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
 app.use(cors({
   origin: process.env.CLIENT_URL
-    ? process.env.CLIENT_URL.split(',').map(s => s.trim())
+    ? process.env.CLIENT_URL.split(',').map(s => s.trim()).map(s => s.startsWith('http') ? s : `https://${s}`)
     : (process.env.NODE_ENV === 'production' ? false : 'http://localhost:5173'),
   credentials: true,
 }));
