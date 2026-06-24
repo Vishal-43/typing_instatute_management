@@ -9,7 +9,10 @@ const VisitBook = require('../models/VisitBook');
 
 const getStats = async (req, res, next) => {
   try {
-    const students = await Student.countDocuments({ isDeleted: false });
+    const now = new Date();
+    const activeStudentIds = await Enrollment.distinct('student', { endDate: { $gte: now } });
+    const activeStudents = activeStudentIds.length;
+    const totalStudents = await Student.countDocuments({ isDeleted: false });
     const courses = await Course.countDocuments({ isActive: true });
     const feesResult = await FeeReceipt.aggregate([
       { $group: { _id: null, total: { $sum: '$amountPaid' } } },
@@ -25,7 +28,7 @@ const getStats = async (req, res, next) => {
 
     res.json({
       success: true,
-      data: { students, courses, totalFees, results, deadStock, expenseTotal, visits },
+      data: { activeStudents, totalStudents, courses, totalFees, results, deadStock, expenseTotal, visits },
     });
   } catch (err) {
     next(err);

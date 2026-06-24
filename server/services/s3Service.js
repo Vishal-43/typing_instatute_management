@@ -1,16 +1,16 @@
 const { S3Client, PutObjectCommand, GetObjectCommand } = require('@aws-sdk/client-s3');
 
 const s3Client = new S3Client({
-  region: 'ap-northeast-2',
-  endpoint: 'https://hlobfaaxlqrisiesrmfa.storage.supabase.co/storage/v1/s3',
-  credentials: {
-    accessKeyId: 'fd73d281d41a722ab15512c4aab6a5b0',
-    secretAccessKey: 'f71f219e14952e78e0ec9b532ef4c5d95a594ebbef157ca65fa07221984d1fd9',
-  },
+  region: process.env.S3_REGION || 'ap-northeast-2',
+  endpoint: process.env.S3_ENDPOINT,
+  credentials: process.env.S3_ACCESS_KEY && process.env.S3_SECRET_KEY ? {
+    accessKeyId: process.env.S3_ACCESS_KEY,
+    secretAccessKey: process.env.S3_SECRET_KEY,
+  } : undefined,
   forcePathStyle: true,
 });
 
-const BUCKET = 'Document';
+const BUCKET = process.env.S3_BUCKET || 'Document';
 
 const uploadToS3 = async (file, folder) => {
   const key = `${folder}/${Date.now()}-${file.originalname}`;

@@ -1,10 +1,10 @@
-import { Users, BookOpen, IndianRupee, FileText, Archive, CircleDollarSign } from 'lucide-react';
+import { Users, BookOpen, IndianRupee, FileText, Archive, CircleDollarSign, UserCheck } from 'lucide-react';
 import { useGetDashboardStatsQuery, useGetDashboardChartsQuery } from '../services/dashboardApi';
 import { Card, CardContent, CardHeader } from '../components/ui/Card';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
 
 const statCards = [
-  { key: 'students', label: 'Total Students', icon: Users, color: 'bg-blue-50 text-blue-600' },
+  { key: 'activeStudents', label: 'Active Students', icon: UserCheck, color: 'bg-blue-50 text-blue-600' },
   { key: 'courses', label: 'Active Courses', icon: BookOpen, color: 'bg-green-50 text-green-600' },
   { key: 'totalFees', label: 'Fee Collection', icon: IndianRupee, color: 'bg-amber-50 text-amber-600', currency: true },
   { key: 'results', label: 'Results Uploaded', icon: FileText, color: 'bg-purple-50 text-purple-600' },

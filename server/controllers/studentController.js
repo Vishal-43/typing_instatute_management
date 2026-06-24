@@ -158,11 +158,12 @@ const registerStudent = async (req, res, next) => {
 
     if (course && startDate) {
       const courseDoc = await require('../models/Course').findById(course);
+      const calculatedEnd = endDate || (courseDoc ? new Date(new Date(startDate).getTime() + courseDoc.duration * 30 * 24 * 60 * 60 * 1000) : startDate);
       await Enrollment.create({
         student: student._id,
         course,
         startDate,
-        endDate: endDate || startDate,
+        endDate: calculatedEnd,
         courseFee: courseDoc ? courseDoc.feesAmount : 0,
       });
     }

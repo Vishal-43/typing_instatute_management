@@ -124,7 +124,7 @@ export default function StudentRegistrationPage() {
                   label: `${c.name} (${c.language}) - ${c.duration} months - ₹${c.feesAmount}`,
                 }))} />
                 <Input label="Start Date *" type="date" name="startDate" value={startDate} onChange={handleStartDateChange} required />
-                <Input label="End Date" type="date" name="endDate" value={endDate} disabled />
+                <Input label="End Date" type="date" name="endDate" value={endDate} readOnly />
               </div>
             </CardContent>
           </Card>
