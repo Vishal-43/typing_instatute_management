@@ -133,3 +133,4 @@ client/
 | `/api/v1/users` | Admin user management |
 | `/api/v1/health` | Health check |
 # typing_instatute_management
+# typing_instatute_management
