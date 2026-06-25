@@ -7,6 +7,8 @@ import { Input } from '../components/ui/Input';
 import { Select } from '../components/ui/Select';
 import { Card, CardHeader, CardContent } from '../components/ui/Card';
 
+const apiBase = (import.meta.env.VITE_API_URL || '/api/v1').replace(/\/api\/v1\/?$/, '');
+
 export default function StudentRegistrationPage() {
   const navigate = useNavigate();
   const [submitted, setSubmitted] = useState(false);
@@ -18,7 +20,7 @@ export default function StudentRegistrationPage() {
   const [endDate, setEndDate] = useState('');
 
   useEffect(() => {
-    axios.get('/api/v1/courses')
+    axios.get(`${apiBase}/api/v1/courses`)
       .then(res => setCourses((res.data?.data || []).filter(c => c.isActive)))
       .catch(() => {});
   }, []);
@@ -50,7 +52,7 @@ export default function StudentRegistrationPage() {
     const data = Object.fromEntries(fd);
 
     try {
-      await axios.post('/api/v1/students/register', data);
+      await axios.post(`${apiBase}/api/v1/students/register`, data);
       setSubmitted(true);
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed. Please try again.');
