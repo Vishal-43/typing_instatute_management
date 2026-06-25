@@ -6,11 +6,13 @@ const hasS3Config = !!(process.env.S3_ACCESS_KEY && process.env.S3_SECRET_KEY &&
 
 let s3Client;
 let BUCKET;
+let ENDPOINT;
 
 if (hasS3Config) {
+  ENDPOINT = process.env.S3_ENDPOINT.replace(/\/+$/, '');
   s3Client = new S3Client({
     region: process.env.S3_REGION || 'ap-northeast-2',
-    endpoint: process.env.S3_ENDPOINT,
+    endpoint: ENDPOINT,
     credentials: {
       accessKeyId: process.env.S3_ACCESS_KEY,
       secretAccessKey: process.env.S3_SECRET_KEY,
@@ -36,7 +38,7 @@ const uploadToS3 = async (file, folder) => {
     Body: file.buffer,
     ContentType: file.mimetype,
   }));
-  return `${s3Client.config.endpoint}/${BUCKET}/${key}`;
+  return `${ENDPOINT}/${BUCKET}/${key}`;
 };
 
 const streamFromS3 = async (key, res) => {
@@ -61,7 +63,7 @@ const extractKeyFromUrl = (url) => {
     }
     return null;
   }
-  const prefix = `${s3Client.config.endpoint}/${BUCKET}/`;
+  const prefix = `${ENDPOINT}/${BUCKET}/`;
   return url.startsWith(prefix) ? url.slice(prefix.length) : null;
 };
 
