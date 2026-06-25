@@ -43,7 +43,7 @@ export default function StudentListPage() {
           <Button><Plus size={18} className="mr-1" /> Add Student</Button>
         </Link>
       </div>
-      <div className="flex gap-4 mb-6">
+      <div className="flex flex-wrap gap-4 mb-6">
         <div className="flex-1">
           <Input placeholder="Search by name, GR No, or mobile..." value={search} onChange={(e) => { setSearch(e.target.value); setPage(1); }} />
         </div>

@@ -58,7 +58,7 @@ export default function ResultListPage() {
         <h1 className="text-2xl font-bold text-text-primary">Results</h1>
         <Button onClick={() => setShowModal(true)}><Plus size={18} className="mr-1" /> Upload Result</Button>
       </div>
-      <div className="flex gap-4 mb-6">
+      <div className="flex flex-wrap gap-4 mb-6">
         <Input placeholder="Year" value={filters.year} onChange={(e) => setFilters(f => ({ ...f, year: e.target.value }))} />
         <Select options={[{ value: 'June', label: 'June' }, { value: 'December', label: 'December' }]} placeholder="Session" value={filters.examSession} onChange={(e) => setFilters(f => ({ ...f, examSession: e.target.value }))} />
         <Select options={courses.map(c => ({ value: c.language, label: `${c.name} (${c.language})` }))} placeholder="Course" value={filters.subject} onChange={(e) => setFilters(f => ({ ...f, subject: e.target.value }))} />

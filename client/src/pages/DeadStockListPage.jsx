@@ -56,7 +56,7 @@ export default function DeadStockListPage() {
         <div className="flex gap-2">
           <div className="relative group">
             <Button variant="outline"><Download size={16} className="mr-1" /> Export Report</Button>
-            <div className="absolute right-0 mt-1 bg-white border border-border rounded-lg shadow-lg hidden group-hover:block z-10 min-w-[180px]">
+            <div className="absolute right-0 sm:left-0 mt-1 bg-white border border-border rounded-lg shadow-lg hidden group-hover:block z-10 min-w-[180px] whitespace-nowrap">
               <button onClick={() => exportReport('monthly', 'pdf')} className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-50">Monthly PDF</button>
               <button onClick={() => exportReport('monthly', 'excel')} className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-50">Monthly Excel</button>
               <button onClick={() => exportReport('yearly', 'pdf')} className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-50">Yearly PDF</button>
@@ -69,7 +69,7 @@ export default function DeadStockListPage() {
       <DataTable columns={columns} data={data?.data || []} loading={isLoading} emptyMessage="No dead stock entries" />
       <Modal isOpen={showModal} onClose={() => { setShowModal(false); setEditItem(null); }} title={editItem ? 'Edit Entry' : 'Add Dead Stock Entry'}>
         <form onSubmit={handleSubmit} className="space-y-4" key={editItem?._id}>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Input label="Asset Name" name="assetName" defaultValue={editItem?.assetName || ''} required />
             <Input label="Asset Code" name="assetCode" defaultValue={editItem?.assetCode || ''} required />
             <Select label="Category" name="category" defaultValue={editItem?.category || ''} required options={categories.map(c => ({ value: c, label: c }))} />
