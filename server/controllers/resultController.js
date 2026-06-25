@@ -1,5 +1,5 @@
 const Result = require('../models/Result');
-const { uploadToS3 } = require('../services/s3Service');
+const { uploadToS3, streamFromS3, extractKeyFromUrl } = require('../services/s3Service');
 
 const getResults = async (req, res, next) => {
   try {
@@ -58,7 +58,18 @@ const viewResult = async (req, res, next) => {
       return res.status(400).json({ success: false, message: 'Result file URL is invalid. Please re-upload the file.' });
     }
 
-    res.redirect(result.fileUrl);
+    if (result.fileUrl.startsWith('/uploads/')) {
+      return res.redirect(result.fileUrl);
+    }
+
+    const key = extractKeyFromUrl(result.fileUrl);
+    if (key) {
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', `inline; filename="result-${result.year}-${result.examSession}.pdf"`);
+      await streamFromS3(key, res);
+    } else {
+      res.redirect(result.fileUrl);
+    }
   } catch (err) {
     next(err);
   }
