@@ -9,6 +9,8 @@ import { Input } from '../components/ui/Input';
 import { Select } from '../components/ui/Select';
 import { DataTable } from '../components/ui/DataTable';
 
+const apiBase = (import.meta.env.VITE_API_URL || '/api/v1').replace(/\/api\/v1\/?$/, '');
+
 export default function ResultListPage() {
   const token = useSelector((state) => state.auth.token);
   const [filters, setFilters] = useState({ year: '', examSession: '', subject: '' });
@@ -45,7 +47,7 @@ export default function ResultListPage() {
     {
       key: 'actions', label: 'Actions', render: (r) => (
         <div className="flex gap-2">
-          <Button variant="ghost" size="sm" onClick={() => window.open(`/api/v1/results/${r._id}/view?token=${token}`, '_blank')}><Eye size={16} /></Button>
+          <Button variant="ghost" size="sm" onClick={() => window.open(`${apiBase}/api/v1/results/${r._id}/view?token=${token}`, '_blank')}><Eye size={16} /></Button>
           <Button variant="ghost" size="sm" onClick={() => deleteResult(r._id)}><Trash2 size={16} className="text-red-500" /></Button>
         </div>
       ),

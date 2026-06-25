@@ -44,6 +44,9 @@ const streamFromS3 = async (key, res) => {
   if (fs.existsSync(filepath)) {
     return fs.createReadStream(filepath).pipe(res);
   }
+  if (!hasS3Config) {
+    throw new Error('Receipt file not found');
+  }
   const { Body } = await s3Client.send(new GetObjectCommand({
     Bucket: BUCKET,
     Key: key,

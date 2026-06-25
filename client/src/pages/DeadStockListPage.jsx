@@ -38,7 +38,7 @@ export default function DeadStockListPage() {
   };
 
   const exportReport = (period, format) => {
-    window.open(`/api/v1/deadstock/report/${period}?format=${format}&token=${token}`, '_blank');
+    window.open(`${apiBase}/api/v1/deadstock/report/${period}?format=${format}&token=${token}`, '_blank');
   };
 
   const resolveUrl = (url) => {

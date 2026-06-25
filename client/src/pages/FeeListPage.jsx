@@ -10,6 +10,8 @@ import { Input } from '../components/ui/Input';
 import { Select } from '../components/ui/Select';
 import { DataTable } from '../components/ui/DataTable';
 
+const apiBase = (import.meta.env.VITE_API_URL || '/api/v1').replace(/\/api\/v1\/?$/, '');
+
 export default function FeeListPage() {
   const [page, setPage] = useState(1);
   const [showModal, setShowModal] = useState(false);
@@ -44,7 +46,7 @@ export default function FeeListPage() {
 
   const downloadPDF = useCallback(async (id) => {
     try {
-      const res = await fetch(`/api/v1/fees/${id}/pdf`, {
+      const res = await fetch(`${apiBase}/api/v1/fees/${id}/pdf`, {
         headers: { authorization: `Bearer ${token}` },
       });
       if (!res.ok) throw new Error('Download failed');

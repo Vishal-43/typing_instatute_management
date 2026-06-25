@@ -8,6 +8,8 @@ import { Input } from '../components/ui/Input';
 import { Select } from '../components/ui/Select';
 import { DataTable } from '../components/ui/DataTable';
 
+const apiBase = (import.meta.env.VITE_API_URL || '/api/v1').replace(/\/api\/v1\/?$/, '');
+
 const categories = [
   { value: 'Rent', label: 'Rent' },
   { value: 'Electricity', label: 'Electricity' },
@@ -71,7 +73,7 @@ export default function ExpenseListPage() {
         <div className="flex gap-2">
           {r.receiptUrl && (
             <Button variant="ghost" size="sm" onClick={async () => {
-              const res = await fetch(`/api/v1/expenses/${r._id}/receipt`, {
+              const res = await fetch(`${apiBase}/api/v1/expenses/${r._id}/receipt`, {
                 headers: { authorization: `Bearer ${token}` },
               });
               if (!res.ok) { alert('Failed to load receipt'); return; }
