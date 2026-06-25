@@ -5,13 +5,13 @@ const { protect } = require('../middleware/authMiddleware');
 const upload = require('../middleware/uploadMiddleware');
 const { logAudit } = require('../middleware/auditLogger');
 
+router.get('/:id/receipt', getExpenseReceipt);
+
 router.use(protect);
 
 router.route('/')
   .get(getExpenses)
   .post(upload.single('receipt'), logAudit('CREATE_EXPENSE', 'expenses'), createExpense);
-
-router.get('/:id/receipt', getExpenseReceipt);
 
 router.route('/:id')
   .put(upload.single('receipt'), logAudit('UPDATE_EXPENSE', 'expenses'), updateExpense)

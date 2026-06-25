@@ -4,13 +4,13 @@ const { getFees, createFee, getFee, updateFee, getFeePDF } = require('../control
 const { protect } = require('../middleware/authMiddleware');
 const { logAudit } = require('../middleware/auditLogger');
 
+router.get('/:id/pdf', getFeePDF);
+
 router.use(protect);
 
 router.route('/')
   .get(getFees)
   .post(logAudit('CREATE_FEE', 'fees'), createFee);
-
-router.get('/:id/pdf', getFeePDF);
 
 router.route('/:id')
   .get(getFee)

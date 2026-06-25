@@ -5,13 +5,14 @@ const { protect } = require('../middleware/authMiddleware');
 const upload = require('../middleware/uploadMiddleware');
 const { logAudit } = require('../middleware/auditLogger');
 
+router.get('/:id/view', viewResult);
+
 router.use(protect);
 
 router.route('/')
   .get(getResults)
   .post(upload.single('file'), logAudit('CREATE_RESULT', 'results'), createResult);
 
-router.get('/:id/view', viewResult);
 router.delete('/:id', logAudit('DELETE_RESULT', 'results'), deleteResult);
 
 module.exports = router;
