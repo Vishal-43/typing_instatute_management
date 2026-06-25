@@ -110,9 +110,31 @@ const validate = (schema) => (req, res, next) => {
   next();
 };
 
+const registerStudentSchema = Joi.object({
+  surname: Joi.string().required(),
+  firstName: Joi.string().required(),
+  fathersName: Joi.string().allow(''),
+  mothersName: Joi.string().allow(''),
+  mobile: Joi.string().pattern(/^[0-9]{10}$/).required().messages({
+    'string.pattern.base': 'Mobile number must be 10 digits',
+  }),
+  telephone: Joi.string().allow(''),
+  email: Joi.string().email().allow(''),
+  permanentAddress: Joi.string().allow(''),
+  residentialAddress: Joi.string().allow(''),
+  schoolCollegeName: Joi.string().allow(''),
+  qualification: Joi.string().allow(''),
+  dateOfBirth: Joi.string().allow(''),
+  subject: Joi.string().valid('English', 'Marathi', 'Hindi').required(),
+  course: Joi.string().allow(''),
+  startDate: Joi.string().allow(''),
+  endDate: Joi.string().allow(''),
+});
+
 module.exports = {
   validate,
   studentSchema,
+  registerStudentSchema,
   courseSchema,
   enrollmentSchema,
   feeReceiptSchema,

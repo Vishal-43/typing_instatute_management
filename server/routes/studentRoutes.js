@@ -4,12 +4,12 @@ const { getStudents, createStudent, getStudent, updateStudent, deleteStudent, re
 const { protect } = require('../middleware/authMiddleware');
 const upload = require('../middleware/uploadMiddleware');
 const { logAudit } = require('../middleware/auditLogger');
-const { validate, studentSchema } = require('../utils/validators');
+const { validate, studentSchema, registerStudentSchema } = require('../utils/validators');
 
 router.post('/register', upload.fields([
   { name: 'photo', maxCount: 1 },
   { name: 'signature', maxCount: 1 },
-]), registerStudent);
+]), validate(registerStudentSchema), registerStudent);
 
 router.use(protect);
 

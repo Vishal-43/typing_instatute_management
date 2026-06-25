@@ -16,7 +16,7 @@ export default function FeeListPage() {
   const [editId, setEditId] = useState(null);
   const token = useSelector((state) => state.auth.token);
   const { data, isLoading } = useGetFeesQuery({ page, limit: 10 });
-  const { data: studentsData } = useGetStudentsQuery({ limit: 1000, isApproved: 'true' });
+  const { data: studentsData } = useGetStudentsQuery({ limit: 5000 });
   const { data: coursesData } = useGetCoursesQuery();
   const [createFee] = useCreateFeeMutation();
   const [updateFee] = useUpdateFeeMutation();

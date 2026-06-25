@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Plus, Download, FileSpreadsheet } from 'lucide-react';
+import { Plus, Download, FileSpreadsheet, Image } from 'lucide-react';
 import { useSelector } from 'react-redux';
 import { useGetDeadStockQuery, useCreateDeadStockMutation, useUpdateDeadStockMutation } from '../services/deadstockApi';
 import { Button } from '../components/ui/Button';
@@ -7,6 +7,8 @@ import { Modal } from '../components/ui/Modal';
 import { Input } from '../components/ui/Input';
 import { Select } from '../components/ui/Select';
 import { DataTable } from '../components/ui/DataTable';
+
+const apiBase = (import.meta.env.VITE_API_URL || '/api/v1').replace(/\/api\/v1\/?$/, '');
 
 const categories = ['Computer', 'CPU', 'Monitor', 'Keyboard', 'Mouse', 'Camera', 'Printer', 'UPS', 'Other'];
 const reasons = ['Damaged', 'Not Working', 'Obsolete', 'Broken', 'Scrap'];
@@ -39,7 +41,21 @@ export default function DeadStockListPage() {
     window.open(`/api/v1/deadstock/report/${period}?format=${format}&token=${token}`, '_blank');
   };
 
+  const resolveUrl = (url) => {
+    if (!url) return null;
+    if (url.startsWith('http://') || url.startsWith('https://')) return url;
+    if (url.startsWith('/uploads/')) return `${apiBase}${url}`;
+    return url;
+  };
+
   const columns = [
+    {
+      key: 'imageUrl', label: 'Image', render: (r) => r.imageUrl ? (
+        <a href={resolveUrl(r.imageUrl)} target="_blank" rel="noopener noreferrer">
+          <Image size={20} className="text-primary hover:text-primary-dark" />
+        </a>
+      ) : '-',
+    },
     { key: 'assetName', label: 'Asset Name' },
     { key: 'assetCode', label: 'Code' },
     { key: 'category', label: 'Category' },

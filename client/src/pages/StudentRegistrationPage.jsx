@@ -92,9 +92,9 @@ export default function StudentRegistrationPage() {
                 <Input label="First Name *" name="firstName" required />
                 <Input label="Father's/Husband's Name" name="fathersName" />
                 <Input label="Mother's Name" name="mothersName" />
-                <Input label="Mobile *" name="mobile" required />
+                <Input label="Mobile *" name="mobile" pattern="[0-9]{10}" title="Enter 10-digit mobile number" required />
                 <Input label="Telephone" name="telephone" />
-                <Input label="Email" type="email" name="email" />
+                <Input label="Email" type="email" name="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" title="Enter a valid email address" />
                 <Input label="Date of Birth" type="date" name="dateOfBirth" />
                 <Select label="Language *" name="subject" required options={[
                   { value: 'English', label: 'English' }, { value: 'Marathi', label: 'Marathi' }, { value: 'Hindi', label: 'Hindi' },
