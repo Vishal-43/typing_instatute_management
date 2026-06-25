@@ -54,6 +54,10 @@ const viewResult = async (req, res, next) => {
       return res.status(404).json({ success: false, message: 'Result not found' });
     }
 
+    if (!result.fileUrl || result.fileUrl.startsWith('async') || result.fileUrl.includes('normalizeProvider')) {
+      return res.status(400).json({ success: false, message: 'Result file URL is invalid. Please re-upload the file.' });
+    }
+
     res.redirect(result.fileUrl);
   } catch (err) {
     next(err);

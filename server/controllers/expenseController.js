@@ -58,13 +58,17 @@ const deleteExpense = async (req, res, next) => {
     next(err);
   }
 };
-
 const getExpenseReceipt = async (req, res, next) => {
   try {
     const expense = await Expense.findById(req.params.id);
     if (!expense || !expense.receiptUrl) {
       return res.status(404).json({ success: false, message: 'Receipt not found' });
     }
+
+    if (expense.receiptUrl.startsWith('async') || expense.receiptUrl.includes('normalizeProvider')) {
+      return res.status(400).json({ success: false, message: 'Receipt file URL is invalid. Please re-upload the receipt.' });
+    }
+
     const key = extractKeyFromUrl(expense.receiptUrl);
     if (key) {
       await streamFromS3(key, res);
