@@ -120,11 +120,12 @@ export default function StudentRegistrationPage() {
           <Card className="mb-6">
             <CardHeader><h2 className="font-semibold">Admission</h2></CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Select label="Select Course *" name="course" value={selectedCourse} onChange={handleCourseChange} required options={courses.map(c => ({
                   value: c._id,
                   label: `${c.name} (${c.language}) - ${c.duration} months - ₹${c.feesAmount}`,
                 }))} />
+                <Input label="Date of Admission *" type="date" name="dateOfAdmission" required />
                 <Input label="Start Date *" type="date" name="startDate" value={startDate} onChange={handleStartDateChange} required />
                 <Input label="End Date" type="date" name="endDate" value={endDate} readOnly />
               </div>

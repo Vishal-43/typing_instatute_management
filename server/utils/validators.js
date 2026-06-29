@@ -125,6 +125,7 @@ const registerStudentSchema = Joi.object({
   schoolCollegeName: Joi.string().allow(''),
   qualification: Joi.string().allow(''),
   dateOfBirth: Joi.string().allow(''),
+  dateOfAdmission: Joi.date().required(),
   subject: Joi.string().valid('English', 'Marathi', 'Hindi').required(),
   course: Joi.string().allow(''),
   startDate: Joi.string().allow(''),

@@ -29,6 +29,7 @@ export default function StudentFormPage() {
         residentialAddress: s.residentialAddress || '', schoolCollegeName: s.schoolCollegeName || '',
         qualification: s.qualification || '', subject: s.subject,
         dateOfBirth: s.dateOfBirth?.split('T')[0] || '',
+        dateOfAdmission: s.dateOfAdmission?.split('T')[0] || '',
       });
     }
   }, [studentData, reset]);
@@ -66,6 +67,7 @@ export default function StudentFormPage() {
               <Input label="GR No / C.T. Code *" {...register('grNo', { required: 'Required' })} error={errors.grNo?.message} />
               <Input label="Institute Code *" {...register('instituteCode', { required: 'Required' })} error={errors.instituteCode?.message} />
               <Select label="Exam Session *" options={[{ value: 'June', label: 'June' }, { value: 'December', label: 'December' }]} {...register('examSession', { required: 'Required' })} error={errors.examSession?.message} />
+              <Input label="Date of Admission *" type="date" {...register('dateOfAdmission', { required: 'Required' })} error={errors.dateOfAdmission?.message} />
             </div>
           </CardContent>
         </Card>
@@ -81,7 +83,7 @@ export default function StudentFormPage() {
               <Input label="Telephone" {...register('telephone')} />
               <Input label="Email" type="email" {...register('email')} />
               <Input label="Date of Birth" type="date" {...register('dateOfBirth')} />
-              <Select label="Subject *" options={[{ value: 'English', label: 'English' }, { value: 'Marathi', label: 'Marathi' }, { value: 'Hindi', label: 'Hindi' }]} {...register('subject', { required: 'Required' })} error={errors.subject?.message} />
+              <Select label="Lanuage *" options={[{ value: 'English', label: 'English' }, { value: 'Marathi', label: 'Marathi' }, { value: 'Hindi', label: 'Hindi' }]} {...register('subject', { required: 'Required' })} error={errors.subject?.message} />
             </div>
           </CardContent>
         </Card>
